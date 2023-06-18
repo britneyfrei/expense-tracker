@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 
@@ -10,9 +11,18 @@ connectDB();
 const transactions = require("./routes/transactions");
 
 const app = express();
+
+app.use(
+	cors({
+		origin: "https://expense-tracker-frontend-ae8z.onrender.com/",
+		methods: ["GET", "POST", "PUT", "DELETE"],
+		allowedHeaders: ["Content-Type", "Authorization"],
+	})
+);
+
 app.use(express.json());
-if (process.env.NODE_ENV === 'development') {
-	app.use(morgan('dev'))
+if (process.env.NODE_ENV === "development") {
+	app.use(morgan("dev"));
 }
 app.use("/api/v1/transactions", transactions);
 
