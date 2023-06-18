@@ -16,7 +16,9 @@ export const GlobalProvider = ({ children }) => {
 	// Actions
 	const getTransactions = async () => {
 		try {
-			const res = await axios.get("/api/v1/transactions");
+			const res = await axios.get(
+				`${process.env.REACT_APP_BASE_URL}/api/v1/transactions`
+			);
 
 			dispatch({
 				type: "GET_TRANSACTIONS",
@@ -31,7 +33,9 @@ export const GlobalProvider = ({ children }) => {
 	};
 	const deleteTransaction = async (id) => {
 		try {
-			await axios.delete(`/api/v1/transactions/${id}`);
+			await axios.delete(
+				`${process.env.REACT_APP_BASE_URL}/api/v1/transactions/${id}`
+			);
 
 			dispatch({
 				type: "DELETE_TRANSACTION",
@@ -52,7 +56,11 @@ export const GlobalProvider = ({ children }) => {
 		};
 
 		try {
-			const res = await axios.post("/api/v1/transactions", transaction, config);
+			const res = await axios.post(
+				`${process.env.REACT_APP_BASE_URL}/api/v1/transactions`,
+				transaction,
+				config
+			);
 
 			dispatch({
 				type: "ADD_TRANSACTION",
